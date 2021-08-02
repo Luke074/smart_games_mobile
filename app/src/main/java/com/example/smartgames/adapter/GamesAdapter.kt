@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.smartgames.gui.ActivityBuyGame
 import com.example.smartgames.R
 import com.example.smartgames.models.Game
 
@@ -32,8 +33,14 @@ class GamesAdapter(val context: Context) : RecyclerView.Adapter<GamesAdapter.Hol
 
         holder.nameGame.text = gamePosition.name
 
-        holder.priceGame.text = "R$ ${gamePosition.price}"
+        holder.priceGame.text = "R$ ${String.format("%.2f", gamePosition.price)}"
         Glide.with(holder.itemView.context).load(gamePosition.image).into(holder.imageGame)
+
+        holder.buttonDetails.setOnClickListener {
+            val buyGame = ActivityBuyGame()
+
+            buyGame.updateId(gamePosition.id)
+        }
     }
 
     override fun getItemCount(): Int {

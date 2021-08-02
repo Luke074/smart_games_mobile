@@ -1,33 +1,42 @@
 package com.example.smartgames
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
-import android.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartgames.adapter.GamesAdapter
 import com.example.smartgames.api.GamesCall
 import com.example.smartgames.api.RetrofitApi
+import com.example.smartgames.gui.ActivityBuyGame
 import com.example.smartgames.models.Game
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     lateinit var toolbar: Toolbar
     lateinit var rvListGames: RecyclerView
     lateinit var adapterGames: GamesAdapter
+
+    lateinit var buttonMoreDetails: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         toolbar = findViewById(R.id.toolbar)
-        toolbar.title = "Games"
+        toolbar.title = "Smart Games"
+        setSupportActionBar(toolbar)
 
+        buttonMoreDetails = findViewById(R.id.button_more_detail)
+        buttonMoreDetails.setOnClickListener(this)
         adapterGames = GamesAdapter(this)
 
         rvListGames = findViewById(R.id.rv_games_list)
@@ -57,5 +66,14 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onClick(v: View?) {
+        when(v!!.id){
+            R.id.button_more_detail -> {
+                val intent = Intent(this, ActivityBuyGame::class.java)
+                startActivity(intent)
+            }
+        }
     }
 }

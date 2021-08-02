@@ -9,9 +9,10 @@ data class Game(
     var price: Double,
     var image: String,
     @SerializedName("Store")
-    var store: Store,
-    var plataform: Plataform
+    var store: ArrayList<Store>,
+    var plataform: ArrayList<Plataform>
 )
+
 class Store(
     var id: Long,
     var name: String
